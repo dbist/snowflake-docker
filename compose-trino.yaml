@@ -1,0 +1,15 @@
+services:
+
+  trino:
+    container_name: trino
+    hostname: trino
+    build: trino/.
+    ports:
+      - "8080:8080"
+    environment:
+      - _JAVA_OPTIONS=-Dfile.encoding=UTF-8
+    volumes:
+      - ./trino/catalog:/etc/trino/catalog
+      - ./trino/etc:/etc/trino
+    
+
