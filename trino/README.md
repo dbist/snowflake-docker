@@ -23,6 +23,6 @@ select count(*) from tpch.sf1.nation;
 
 The Trino [Snowflake](https://trino.io/docs/current/connector/snowflake.html) Connector
 
-
+Further information can be found in [this](https://blog.ervits.com/2024/03/integrating-trino-with-snowflake.html) article.
 
 
