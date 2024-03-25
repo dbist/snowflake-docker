@@ -1,0 +1,23 @@
+version: '3.9'
+
+services:
+
+  flyway:
+    container_name: flyway
+    hostname: flyway
+    image: flyway/flyway
+    entrypoint: ["flyway", "migrate"]
+    environment:
+      - _JAVA_OPTIONS=-Dfile.encoding=UTF-8
+      - _JAVA_OPTIONS=-Djdk.module.illegalAccess=permit
+      - JAVA_TOOL_OPTIONS=--add-opens=java.base/java.nio=ALL-UNNAMED
+    volumes:
+#      - ./flyway/sql:/flyway/sql
+      - ./flyway/conf:/flyway/conf
+    healthcheck:
+      test: ["CMD-SHELL", "flyway", "info"]
+      interval: 10s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+#    depends_on:
