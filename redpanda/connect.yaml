@@ -1,23 +1,21 @@
-# Common config fields, showing default values
 input:
   # CockroachDB Input
   label: ""
   cockroachdb_changefeed:
-    dsn: postgresql://<user>:<password>@<cluster>:<port>/<database>?sslmode=verify-full
+    dsn: postgresql://<user>:<password>@<clustername>.cockroachlabs.cloud:<port>/<clustername>.<database>?sslmode=verify-full
     tls:
       skip_cert_verify: true
       #enable_renegotiation: false
       #root_cas: ""
       #root_cas_file: ""
       client_certs: []
-    tables: [<table_for_cdc>] # No default (required)
+    tables: [cdc_table] # No default (required)
     cursor_cache: "" # No default (optional)
     auto_replay_nacks: true
-buffer:
-  none: {}
+
 pipeline:
-  threads: -1
   processors: []
+
 output:
   # Snowflake Output
   label: ""
@@ -29,7 +27,11 @@ output:
     database: <DATABASE>
     warehouse: <WAREHOUSE>
     schema: <SCHEMA>
+<<<<<<< HEAD
     stage: "@%IMPLICIT_TABLE_STAGE"
+=======
+    stage: "@%IMPLICIT_TABLE_STAGE_NAME"
+>>>>>>> cd5b3ff (updated)
     path: "path"
     upload_parallel_threads: 4
     compression: NONE
@@ -39,50 +41,5 @@ output:
       processors:
         - archive:
             #format: concatenate
-            format: json_array # used in conjunction with STRIP_OUTER_ARRAY = TRUE
+            format: json_array
     max_in_flight: 1
-input_resources: []
-processor_resources: []
-output_resources: []
-cache_resources: []
-rate_limit_resources: []
-logger:
-  level: DEBUG
-  format: logfmt
-  add_timestamp: false
-  level_name: level
-  timestamp_name: time
-  message_name: msg
-  static_fields:
-    '@service': benthos
-  file:
-    path: ""
-    rotate: false
-    rotate_max_age_days: 0
-metrics:
-  prometheus: {}
-  mapping: ""
-tracer:
-  none: {}
-shutdown_delay: 0s
-shutdown_timeout: 20s
-tests: []
-redpanda:
-  pipeline_id: ""
-  seed_brokers: []
-  logs_topic: __redpanda.connect.logs
-  logs_level: info
-  status_topic: __redpanda.connect.status
-  client_id: benthos
-  rack_id: ""
-  timeout: 10s
-  max_message_bytes: 1MB
-  tls:
-    enabled: false
-    skip_cert_verify: false
-    enable_renegotiation: false
-    root_cas: ""
-    root_cas_file: ""
-    client_certs: []
-  sasl: []
-
