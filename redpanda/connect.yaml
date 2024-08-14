@@ -3,14 +3,14 @@ input:
   # CockroachDB Input
   label: ""
   cockroachdb_changefeed:
-    dsn: postgresql://artem:ck15tHSV3UvJr9jZzBheNg@cockroachdb-serverless-15710.7tt.aws-us-east-1.cockroachlabs.cloud:26257/cockroachdb-serverless-15710.defaultdb?sslmode=verify-full
+    dsn: postgresql://<user>:<password>@<cluster>:<port>/<database>?sslmode=verify-full
     tls:
       skip_cert_verify: true
       #enable_renegotiation: false
       #root_cas: ""
       #root_cas_file: ""
       client_certs: []
-    tables: [office_dogs] # No default (required)
+    tables: [<table_for_cdc>] # No default (required)
     cursor_cache: "" # No default (optional)
     auto_replay_nacks: true
 buffer:
@@ -22,15 +22,15 @@ output:
   # Snowflake Output
   label: ""
   snowflake_put:
-    account: SFIFQDD-CG73302
-    user: snowgrid
+    account: <account>
+    user: <user>
     private_key_file: rsa_key.pem
     role: ACCOUNTADMIN
-    database: COCKROACH
-    warehouse: COMPUTE_WH
-    schema: PUBLIC
-    stage: "@%OFFICE_DOGS"
-    path: "dogs"
+    database: <database>
+    warehouse: <warehouse>
+    schema: <schema>
+    stage: "@%implicit_table_stage_name"
+    path: "path"
     upload_parallel_threads: 4
     compression: NONE
     batching:
@@ -39,7 +39,7 @@ output:
       processors:
         - archive:
             #format: concatenate
-            format: json_array
+            format: json_array # used in conjunction with STRIP_OUTER_ARRAY = TRUE
     max_in_flight: 1
 input_resources: []
 processor_resources: []
