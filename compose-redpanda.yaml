@@ -1,0 +1,11 @@
+services:
+
+  redpanda:
+    container_name: redpanda-connect
+    hostname: redpanda-connect
+    image: docker.redpanda.com/redpandadata/connect
+    volumes:
+      - ./redpanda/connect.yaml:/connect.yaml
+      - /Users/aervits/.ssh/rsa_key.pem:/rsa_key.pem
+
+

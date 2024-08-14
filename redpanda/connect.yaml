@@ -1,0 +1,88 @@
+# Common config fields, showing default values
+input:
+  # CockroachDB Input
+  label: ""
+  cockroachdb_changefeed:
+    dsn: postgresql://artem:ck15tHSV3UvJr9jZzBheNg@cockroachdb-serverless-15710.7tt.aws-us-east-1.cockroachlabs.cloud:26257/cockroachdb-serverless-15710.defaultdb?sslmode=verify-full
+    tls:
+      skip_cert_verify: true
+      #enable_renegotiation: false
+      #root_cas: ""
+      #root_cas_file: ""
+      client_certs: []
+    tables: [office_dogs] # No default (required)
+    cursor_cache: "" # No default (optional)
+    auto_replay_nacks: true
+buffer:
+  none: {}
+pipeline:
+  threads: -1
+  processors: []
+output:
+  # Snowflake Output
+  label: ""
+  snowflake_put:
+    account: SFIFQDD-CG73302
+    user: snowgrid
+    private_key_file: rsa_key.pem
+    role: ACCOUNTADMIN
+    database: COCKROACH
+    warehouse: COMPUTE_WH
+    schema: PUBLIC
+    stage: "@%OFFICE_DOGS"
+    path: "dogs"
+    upload_parallel_threads: 4
+    compression: NONE
+    batching:
+      count: 10
+      period: 3s
+      processors:
+        - archive:
+            #format: concatenate
+            format: json_array
+    max_in_flight: 1
+input_resources: []
+processor_resources: []
+output_resources: []
+cache_resources: []
+rate_limit_resources: []
+logger:
+  level: DEBUG
+  format: logfmt
+  add_timestamp: false
+  level_name: level
+  timestamp_name: time
+  message_name: msg
+  static_fields:
+    '@service': benthos
+  file:
+    path: ""
+    rotate: false
+    rotate_max_age_days: 0
+metrics:
+  prometheus: {}
+  mapping: ""
+tracer:
+  none: {}
+shutdown_delay: 0s
+shutdown_timeout: 20s
+tests: []
+redpanda:
+  pipeline_id: ""
+  seed_brokers: []
+  logs_topic: __redpanda.connect.logs
+  logs_level: info
+  status_topic: __redpanda.connect.status
+  client_id: benthos
+  rack_id: ""
+  timeout: 10s
+  max_message_bytes: 1MB
+  tls:
+    enabled: false
+    skip_cert_verify: false
+    enable_renegotiation: false
+    root_cas: ""
+    root_cas_file: ""
+    client_certs: []
+  sasl: []
+
