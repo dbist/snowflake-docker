@@ -3,14 +3,14 @@ input:
   # CockroachDB Input
   label: ""
   cockroachdb_changefeed:
-    dsn: postgresql://<user>:<password>@<cockroachdb-cluster>:<port>/<database>?sslmode=verify-full
+    dsn: postgresql://<user>:<password>@<cluster>:<port>/<database>?sslmode=verify-full
     tls:
       skip_cert_verify: true
       #enable_renegotiation: false
       #root_cas: ""
       #root_cas_file: ""
       client_certs: []
-    tables: [table_for_cdc] # No default (required)
+    tables: [<table_for_cdc>] # No default (required)
     cursor_cache: "" # No default (optional)
     auto_replay_nacks: true
 buffer:
@@ -39,7 +39,7 @@ output:
       processors:
         - archive:
             #format: concatenate
-            format: json_array
+            format: json_array # used in conjunction with STRIP_OUTER_ARRAY = TRUE
     max_in_flight: 1
 input_resources: []
 processor_resources: []
