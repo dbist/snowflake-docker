@@ -10,7 +10,7 @@ input:
       #root_cas: ""
       #root_cas_file: ""
       client_certs: []
-    tables: [office_dogs] # No default (required)
+    tables: [table_for_cdc] # No default (required)
     cursor_cache: "" # No default (optional)
     auto_replay_nacks: true
 buffer:

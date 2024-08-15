@@ -7,5 +7,3 @@ services:
     volumes:
       - ./redpanda/connect.yaml:/connect.yaml
       - /Users/aervits/.ssh/rsa_key.pem:/rsa_key.pem
-
-
