@@ -1,0 +1,21 @@
+{
+    "name":"snowflake-sink-batch",
+    "config":{
+      "connector.class":"com.snowflake.kafka.connector.SnowflakeSinkConnector",
+      "tasks.max":"8",
+      "topics":"cockroachdb",
+      "snowflake.topic2table.map": "cockroachdb:kafkatb_batch",
+      "buffer.count.records":"10000",
+      "buffer.flush.time":"60",
+      "buffer.size.bytes":"5000000",
+      "snowflake.url.name":"account:443",
+      "snowflake.user.name":"username",
+      "snowflake.private.key":"",
+      "snowflake.private.key.passphrase":"",
+      "snowflake.database.name":"kafkadb",
+      "snowflake.schema.name":"kafka_schema",
+      "snowflake.role.name":"kafka_connector_role_1",
+      "key.converter":"org.apache.kafka.connect.storage.StringConverter",
+      "value.converter":"com.snowflake.kafka.connector.records.SnowflakeJsonConverter"
+    }
+  }
