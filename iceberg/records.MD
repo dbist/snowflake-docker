@@ -1,0 +1,3 @@
+echo '{"user_id":2324,"event_type":"BUTTON_CLICK","ts":"2024-11-25T20:23:59.380Z"}' | rpk topic produce value_schema_id_prefix --format='%v\n' --schema-id=topic
+echo '{"user_id":3333,"event_type":"SCROLL","ts":"2024-11-25T20:24:14.774Z"}' | rpk topic produce value_schema_id_prefix --format='%v\n' --schema-id=topic
+echo '{"user_id":7272,"event_type":"BUTTON_CLICK","ts":"2024-11-25T20:24:34.552Z"}' | rpk topic produce value_schema_id_prefix --format='%v\n' --schema-id=topic
